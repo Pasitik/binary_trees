@@ -17,6 +17,7 @@
 struct binary_tree_s
 {
 	int n;
+	int height;
 	struct binary_tree_s *parent;
 	struct binary_tree_s *left;
 	struct binary_tree_s *right;
