@@ -1,105 +1,103 @@
 #include "binary_trees.h"
-
-
-/**
- *binary_tree_is_bst_helper - Rotating the tree to the right
- *@tree: The tree to be evaluated and modified
- *@min: The tree to be evaluated and modified
- *@max: The tree to be evaluated and modified
- *Return: Newly modified tree
- */
-int binary_tree_is_bst_helper(const binary_tree_t *tree, int min, int max)
-{
-	if (tree == NULL)
-		return (1);
-
-	if (tree->n <= min || tree->n >= max)
-		return (0);
-
-	return (binary_tree_is_bst_helper(tree->left, min, tree->n) &&
-	    binary_tree_is_bst_helper(tree->right, tree->n, max));
-}
-
+#include <limits.h>
+#include <math.h>
 
 /**
- *binary_tree_is_bst - Rotating the tree to the right
- *@tree: The tree to be evaluated and modified
- *Return: Newly modified tree
+ * binary_tree_is_bst - check if bt is bst
+ * @tree: tree
+ * Return: 0 or 1
  */
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
-	if (tree == NULL)
-		return (0);
+	int prev;
 
-	return (binary_tree_is_bst_helper(tree, INT_MIN, INT_MAX));
+	if (!tree)
+		return (0);
+	prev = INT_MIN;
+	return (inorder(tree, &prev));
 }
 
 /**
- * binary_tree_height - Measures the height of a binary tree.
- * @tree: A pointer to the root node of the tree to measure the height.
- *
- * Return: If tree is NULL, your function must return 0, else return height.
+ * inorder - helper
+ * @tree: tree
+ * @prev: prev
+ * Return: 0 or 1
+ */
+int inorder(const binary_tree_t *tree, int *prev)
+{
+	if (!tree)
+		return (1);
+	if (!inorder(tree->left, prev))
+		return (0);
+	if (*prev >= tree->n)
+		return (0);
+	*prev = tree->n;
+	return (inorder(tree->right, prev));
+}
+
+/**
+ * binary_tree_height - calculate the height of a binary tree
+ * @tree: the binary tree
+ * Return: number of nodes
  */
 size_t binary_tree_height(const binary_tree_t *tree)
 {
-	size_t left_height = 0, right_height = 0;
+	size_t lv, rv, max;
 
 	if (tree == NULL)
 		return (0);
 
-	left_height = tree->left ? binary_tree_height(tree->left) + 1 : 0;
-	right_height = tree->right ? binary_tree_height(tree->right) + 1 : 0;
+	lv = tree->left ? 1 + binarytree_height(tree->left) : 0;
+	rv = tree->right ? 1 + binarytree_height(tree->right) : 0;
 
-	return ((left_height > right_height) ? (left_height) : (right_height));
+	max = lv > rv ? lv : rv;
+	return (max);
 }
 
 /**
- * binary_tree_balance - Measures the balance factor of a binary tree.
- * @tree: A pointer to the root node of the tree to measure the balance factor.
+ * binary_tree_balance - check if a binary tree is balanced or not
+ * Description: check if all nodes have a left/right nodes
  *
- * Return: If tree is NULL, return 0, else return balance factor.
+ * @tree: the binary tree
+ * Return: 0 not balanced | 1 balanced
  */
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	size_t r, l = 0;
+	int lv, rv;
 
 	if (tree == NULL)
+		return (1);
+
+	if (binarytree_balance(tree->left) == 0
+	    || binarytree_balance(tree->right) == 0)
 		return (0);
 
-	l = binary_tree_height(tree->left);
-	r = binary_tree_height(tree->right);
-	if (tree->left)
-		l++;
-	if (tree->right)
-		r++;
+	lv = tree->left ? 1 + binarytree_height(tree->left) : 0;
+	rv = tree->right ? 1 + binarytree_height(tree->right) : 0;
 
-	return (l - r);
+	if (abs(lv - rv) > 1)
+		return (0);
+
+	return (1);
 }
 
-
 /**
- * binary_tree_is_avl - Builds a Binary Search Tree from an array
- *
- * @tree: Pointer to the first element of the array to be converted
- *
- * Return: Pointer to the root node of the created BST, or NULL on failure
+ * binary_tree_is_avl - check if a binary tree is AVL
+ * @tree: binary tree
+ * Return: 0 (not AVL) | 1 (is AVL)
  */
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-	int balance, is_bst;
+	int isBST, isBalanced;
 
 	if (tree == NULL)
 		return (0);
 
-	balance = binary_tree_balance(tree);
-	is_bst = binary_tree_is_bst(tree);
+	isBST = binary_tree_is_bst(tree);
+	isBalanced = binarytree_balance(tree);
 
-	if (balance < -1 || balance > 1)
-		return (0);
-	if (!is_bst)
-		return (0);
-	if (balance >= 0 && is_bst == 1)
+	if (isBST && isBalanced)
 		return (1);
+
 	return (0);
 }
-
