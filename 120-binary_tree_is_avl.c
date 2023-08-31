@@ -72,25 +72,17 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 }
 
 /**
- * binary_tree_balance - Measures the balance factor of a binary tree.
- * @tree: A pointer to the root node of the tree to measure the balance factor.
+ * binary_tree_balance - Measures the balance factor of a binary tree
  *
- * Return: If tree is NULL, return 0, else return balance factor.
+ * @tree: Pointer to the root node of the tree
+ *
+ * Return: Balance factor
  */
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	size_t r, l = 0;
-
 	if (tree == NULL)
 		return (0);
 
-	l = avl_height(tree->left);
-	r = avl_height(tree->right);
-	if (tree->left)
-		l++;
-	if (tree->right)
-		r++;
-
-	return (l - r);
+	return (avl_height(tree->left) - avl_height(tree->right));
 }
 
