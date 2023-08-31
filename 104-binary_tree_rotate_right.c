@@ -27,7 +27,7 @@ int avl_height(const binary_tree_t *tree)
 }
 
 /**
- * binary_tree_rotate_left - Performs a left-rotation on a binary tree
+ * binary_tree_rotate_right - Performs a left-rotation on a binary tree
  *
  * @tree: Pointer to the root node of the tree to rotate
  *
