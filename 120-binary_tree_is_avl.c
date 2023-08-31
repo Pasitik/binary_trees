@@ -2,6 +2,8 @@
 #include <limits.h>
 #include <math.h>
 
+int inorder(const binary_tree_t *tree, int *prev);
+
 /**
  * binary_tree_is_bst - check if bt is bst
  * @tree: tree
@@ -36,11 +38,11 @@ int inorder(const binary_tree_t *tree, int *prev)
 }
 
 /**
- * binary_tree_height - calculate the height of a binary tree
+ * binarytree_height - calculate the height of a binary tree
  * @tree: the binary tree
  * Return: number of nodes
  */
-size_t binary_tree_height(const binary_tree_t *tree)
+size_t binarytree_height(const binary_tree_t *tree)
 {
 	size_t lv, rv, max;
 
@@ -55,13 +57,13 @@ size_t binary_tree_height(const binary_tree_t *tree)
 }
 
 /**
- * binary_tree_balance - check if a binary tree is balanced or not
+ * binarytree_balance - check if a binary tree is balanced or not
  * Description: check if all nodes have a left/right nodes
  *
  * @tree: the binary tree
  * Return: 0 not balanced | 1 balanced
  */
-int binary_tree_balance(const binary_tree_t *tree)
+int binarytree_balance(const binary_tree_t *tree)
 {
 	int lv, rv;
 
