@@ -86,14 +86,15 @@ int binary_tree_balance(const binary_tree_t *tree)
  */
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-	int balance;
+	int balance, is_bst;
 
 	if (tree == NULL)
 		return (0);
 
 	balance = binary_tree_balance(tree);
+	is_bst = binary_tree_is_bst(tree);
 
-	if (binary_tree_is_bst(tree) &&  balance)
+	if (balance == 1 && is_bst == 1)
 		return (1);
 	return (0);
 }
