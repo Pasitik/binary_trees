@@ -9,15 +9,16 @@
 int binary_tree_balance(const binary_tree_t *tree)
 {
 	size_t bf, r, l = 0;
-	if(tree == NULL)
+
+	if (tree == NULL)
 		return (0);
 
-	l = binary_tree_height(tree->left) ;
+	l = binary_tree_height(tree->left);
 	r = binary_tree_height(tree->right);
 	if (tree->left)
 		l++;
 	if (tree->right)
 		r++;
 
-	return (l-r);
+	return (l - r);
 }
