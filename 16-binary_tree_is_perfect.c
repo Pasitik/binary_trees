@@ -20,8 +20,13 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	{
 		binary_tree_is_perfect(tree->left);
 		binary_tree_is_perfect(tree->right);
-		return (((tree->left && tree->right) ||
-					(tree->left == NULL && tree->right == NULL)) ? 1 : 0);
+		return (
+				((tree->left && tree->right) ||
+					(
+					 tree->left == NULL
+					 && tree->right == NULL
+					 )
+				) ? 1 : 0);
 	}
 
 	return (0);
