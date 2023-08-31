@@ -10,7 +10,7 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	int lheight, rheight, balance;
 
 	if (tree == NULL)
-		return (1);
+		return (0);
 
 	lheight = custom_binary_tree_height(tree->left);
 	rheight = custom_binary_tree_height(tree->right);
@@ -24,6 +24,7 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 		return (0);
 	return (binary_tree_is_bst(tree->left)
 			&& binary_tree_is_bst(tree->right));
+	return (0);
 }
 
 /**
