@@ -13,6 +13,7 @@
  * @parent: Pointer to the parent node
  * @left: Pointer to the left child node
  * @right: Pointer to the right child node
+ * @height: pointer to height of the tree
  */
 struct binary_tree_s
 {
