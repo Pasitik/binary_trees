@@ -41,14 +41,14 @@ int main(void)
     perfect = binary_tree_is_perfect(root);
     printf("Perfect: %d\n\n", perfect);
 
-    root->right->right->left = binary_tree_node(root->right->right, 10);
-    binary_tree_print(root);
-    perfect = binary_tree_is_perfect(root);
-    printf("Perfect: %d\n\n", perfect);
+    //root->right->right->left = binary_tree_node(root->right->right, 10);
+    //binary_tree_print(root);
+//    perfect = binary_tree_is_perfect(root);
+  //  printf("Perfect: %d\n\n", perfect);
 
-    root->right->right->right = binary_tree_node(root->right->right, 10);
-    binary_tree_print(root);
-    perfect = binary_tree_is_perfect(root);
-    printf("Perfect: %d\n", perfect);
+    //root->right->right->right = binary_tree_node(root->right->right, 10);
+    //binary_tree_print(root);
+    //perfect = binary_tree_is_perfect(root);
+    //printf("Perfect: %d\n", perfect);
     return (0);
 }
