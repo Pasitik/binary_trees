@@ -4,7 +4,7 @@
  * bst_insert - Performs a left-rotation on a binary tree
  *
  * @tree: Pointer to the root node of the tree to rotate
- *
+ * @value: value to be inserted
  * Return: Pointer to the new root node after rotation
  */
 bst_t *bst_insert(bst_t **tree, int value)
@@ -16,7 +16,7 @@ bst_t *bst_insert(bst_t **tree, int value)
 	}
 
 	if (value < (*tree)->n)
-	{	
+	{
 		if ((*tree)->left == NULL)
 		{
 			(*tree)->left = binary_tree_node(*tree, value);
