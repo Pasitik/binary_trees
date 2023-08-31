@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <limits.h>
 
 
 /**
@@ -62,6 +63,7 @@ int binary_tree_is_complete_recursive(const binary_tree_t *tree,
 binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree);
 binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree);
 bst_t *bst_insert(bst_t **tree, int value);
+int binary_tree_is_bst(const binary_tree_t *tree);
 
 #endif
 
