@@ -1,65 +1,98 @@
 #include "binary_trees.h"
 
-bst_t *bst_min_value_node(bst_t *node);
+bst_t *bst_find_root(bst_t *node);
+bst_t *bst_search(const bst_t *tree, int value);
+
 /**
- * bst_remove - Builds a Binary Search Tree from an array
- *
- * @root: Pointer to the first element of the array to be converted
- * @value: Number of elements in the array
- *
- * Return: Pointer to the root node of the created BST, or NULL on failure
+ * bst_remove - Remove a node from a Binary Search Tree
+ * The deleted node must be replaced with its first in-order successor.
+ * @root: root node
+ * @value: value in node to look for and remove
+ * Return: pointer to new root node of tree after removing desired value
  */
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *newRoot = root;
+	bst_t *del_node, *replacement, *new_root;
+	int status; /* 1 if right, 0 if left */
 
 	if (root == NULL)
 		return (NULL);
-	if (value < root->n)
+
+	del_node = bst_search(root, value);
+	if (del_node == NULL)
+		return (NULL);
+	replacement = NULL, status = 0;
+	if (del_node->right)
 	{
-		root->left = bst_remove(root->left, value);
+		replacement = del_node->right, status = 1;
+		while (replacement->left)
+			replacement = replacement->left;
 	}
-	else if (value > root->n)
+	else if (del_node->left)
+		replacement = del_node->left;
+	if (replacement == NULL)
 	{
-		root->right = bst_remove(root->right, value);
+		if (del_node->parent->left->n == del_node->n)
+			del_node->parent->left = NULL;
+		else
+			del_node->parent->right = NULL;
+		new_root = bst_find_root(del_node);
+		free(del_node);
+	}
+	else if (status == 1)
+	{
+		del_node->n = replacement->n;
+		new_root = bst_find_root(replacement);
+		if (replacement->parent->left->n == replacement->n)
+			replacement->parent->left = NULL;
+		else
+			replacement->parent->right = NULL;
+		free(replacement);
 	}
 	else
 	{
-		if (root->left == NULL)
-		{
-			newRoot = root->right;
-			free(root);
-			return (newRoot);
-		}
-		if (root->right == NULL)
-		{
-			newRoot = root->left;
-			free(root);
-			return (newRoot);
-		}
-		newRoot = bst_min_value_node(root->right);
-		root->n = newRoot->n;
-		root->right = bst_remove(root->right, newRoot->n);
+		del_node->n = replacement->n;
+		del_node->left = del_node->left->left;
+		if (del_node->left)
+			del_node->left->parent = del_node;
+		new_root = bst_find_root(del_node);
+		free(replacement);
 	}
-	return (root);
+	return (new_root);
 }
 
 /**
- * bst_min_value_node - Builds a Binary Search Tree from an array
- *
- * @node: Pointer to the first element of the array to be converted
- *
- * Return: Pointer to the root node of the created BST, or NULL on failure
+ * bst_search - Search for a value in a Binary Search Tree
+ * @tree: pointer to root node of BST
+ * @value: value to look for 9bst_t *bst_search(const bst_t *tree, int value)
+ * Return: pointer to node containing value, else NULL
  */
-bst_t *bst_min_value_node(bst_t *node)
+bst_t *bst_search(const bst_t *tree, int value)
 {
-	bst_t *current = node;
+	if (tree == NULL)
+		return (NULL);
+	if (tree->n == value)
+		return ((bst_t *)tree);
 
-	while (current && current->left != NULL)
-	{
-		current = current->left;
-	}
+	if (value < tree->n)
+		return (bst_search(tree->left, value));
+	else
+		return (bst_search(tree->right, value));
+}
 
-	return (current);
+/**
+ * bst_find_root - find the root of a Binary Search Tree
+ * @node: node in a BST
+ * Return: pointer to root node, else NULL
+ */
+bst_t *bst_find_root(bst_t *node)
+{
+	if (node == NULL)
+		return (NULL);
+
+	while (node->parent)
+		node = node->parent;
+
+	return (node);
 }
 
