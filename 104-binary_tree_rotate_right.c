@@ -33,7 +33,7 @@ int avl_height(const binary_tree_t *tree)
  *
  * Return: Pointer to the new root node after rotation
  */
-binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree)
+binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
 {
 	binary_tree_t *temp, *new_root;
 
