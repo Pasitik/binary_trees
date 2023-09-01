@@ -75,6 +75,7 @@ avl_t *avl_insert(avl_t **tree, int value);
 int avl_height(const binary_tree_t *tree);
 int max_(int a, int b);
 avl_t *array_to_avl(int *array, size_t size);
+avl_t *avl_remove(avl_t *root, int value);
 
 #endif
 
