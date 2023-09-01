@@ -71,6 +71,9 @@ int binary_tree_is_avl(const binary_tree_t *tree);
 int bst_greater(const binary_tree_t *node, int val);
 int bst_lesser(const binary_tree_t *node, int val);
 int custom_binary_tree_height(const binary_tree_t *tree);
+avl_t *avl_insert(avl_t **tree, int value);
+int avl_height(const binary_tree_t *tree);
+int max_(int a, int b);
 
 #endif
 

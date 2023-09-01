@@ -1,12 +1,12 @@
 #include "binary_trees.h"
 
 /**
- * max_ - returns the max of numbers
+ * rmax_ - returns the max of numbers
  * @a: first number
  * @b: second number
  * Return: the max of a and b
  */
-int max_(int a, int b)
+int rmax_(int a, int b)
 {
 	return (a > b ? a : b);
 }
@@ -18,12 +18,12 @@ int max_(int a, int b)
  *
  * Return: Pointer to the new root node after rotation
  */
-int avl_height(const binary_tree_t *tree)
+int lavl_height(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (-1);
 
-	return (1 + max_(avl_height(tree->left), avl_height(tree->right)));
+	return (1 + rmax_(lavl_height(tree->left), lavl_height(tree->right)));
 }
 
 /**
@@ -52,14 +52,14 @@ binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree)
 	if (temp != NULL)
 		temp->parent = tree;
 
-	new_root->height = max_(avl_height(new_root->left),
-			avl_height(new_root->right)) + 1;
+	new_root->height = rmax_(lavl_height(new_root->left),
+			lavl_height(new_root->right)) + 1;
 	/**
 	 * temp->height = max_(avl_height(temp->left),
 	 *  avl_height(temp->right)) + 1;
 	 */
-	tree->height = max_(avl_height(tree->left),
-			avl_height(tree->right)) + 1;
+	tree->height = rmax_(lavl_height(tree->left),
+			lavl_height(tree->right)) + 1;
 
 	return (new_root);
 }
