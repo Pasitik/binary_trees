@@ -41,7 +41,7 @@ int inorder(const binary_tree_t *tree, int *prev)
  * @tree: the binary tree
  * Return: number of nodes
  */
-size_t avl_height(const binary_tree_t *tree)
+int avl_height(const binary_tree_t *tree)
 {
 	size_t lv, rv, max;
 

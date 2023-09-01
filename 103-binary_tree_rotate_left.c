@@ -12,7 +12,7 @@ int rmax_(int a, int b)
 }
 
 /**
- * avl_height - Performs a left-rotation on a binary tree
+ * lavl_height - Performs a left-rotation on a binary tree
  *
  * @tree: Pointer to the root node of the tree to rotate
  *
